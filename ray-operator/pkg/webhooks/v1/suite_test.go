@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net"
+	"os"
 	"path/filepath"
 	"testing"
 	"time"
@@ -34,6 +35,9 @@ var (
 	testEnv   *envtest.Environment
 	ctx       context.Context
 	cancel    context.CancelFunc
+
+	// testAllowedNodeLabels is the operator allowlist the webhooks run with in this suite
+	testAllowedNodeLabels = []string{"topology.kubernetes.io/zone", "nvidia.com/gpu.clique"}
 )
 
 func TestAPIs(t *testing.T) {
@@ -69,6 +73,9 @@ var _ = BeforeSuite(func() {
 	err = admissionv1.AddToScheme(scheme)
 	Expect(err).NotTo(HaveOccurred())
 
+	// topology validation requires the operator to serve webhooks
+	Expect(os.Setenv("ENABLE_WEBHOOKS", "true")).To(Succeed())
+
 	//+kubebuilder:scaffold:scheme
 
 	k8sClient, err = client.New(cfg, client.Options{Scheme: scheme})
@@ -91,7 +98,7 @@ var _ = BeforeSuite(func() {
 	})
 	Expect(err).NotTo(HaveOccurred())
 
-	err = SetupRayClusterWebhookWithManager(mgr)
+	err = SetupRayClusterWebhookWithManager(mgr, testAllowedNodeLabels)
 	Expect(err).NotTo(HaveOccurred())
 	err = SetupRayJobWebhookWithManager(mgr)
 	Expect(err).NotTo(HaveOccurred())

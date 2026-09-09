@@ -145,6 +145,9 @@ func ValidateRayClusterSpec(spec *rayv1.RayClusterSpec, annotations map[string]s
 		if err := validateWorkerGroupIdleTimeout(workerGroup, spec); err != nil {
 			return err
 		}
+		if err := ValidateWorkerGroupTopology(&workerGroup, spec.RayVersion); err != nil {
+			return err
+		}
 	}
 
 	if annotations[RayFTEnabledAnnotationKey] != "" && spec.GcsFaultToleranceOptions != nil {

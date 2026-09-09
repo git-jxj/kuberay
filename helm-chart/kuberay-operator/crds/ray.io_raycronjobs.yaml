@@ -8953,6 +8953,24 @@ spec:
                                   - containers
                                   type: object
                               type: object
+                            topology:
+                              properties:
+                                labelMappings:
+                                  items:
+                                    properties:
+                                      mapTo:
+                                        type: string
+                                      nodeLabel:
+                                        minLength: 1
+                                        type: string
+                                    required:
+                                    - nodeLabel
+                                    type: object
+                                  minItems: 1
+                                  type: array
+                              required:
+                              - labelMappings
+                              type: object
                           required:
                           - groupName
                           - maxReplicas

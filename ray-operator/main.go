@@ -320,7 +320,7 @@ func main() {
 		"unable to create controller", "controller", "RayJob")
 
 	if os.Getenv("ENABLE_WEBHOOKS") == "true" {
-		exitOnError(webhooks.SetupRayClusterWebhookWithManager(mgr),
+		exitOnError(webhooks.SetupRayClusterWebhookWithManager(mgr, config.AllowedNodeLabels),
 			"unable to create webhook", "webhook", "RayCluster")
 		exitOnError(webhooks.SetupRayJobWebhookWithManager(mgr),
 			"unable to create webhook", "webhook", "RayJob")

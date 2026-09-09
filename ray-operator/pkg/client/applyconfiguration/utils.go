@@ -86,6 +86,10 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &rayv1.ServeDeploymentStatusApplyConfiguration{}
 	case v1.SchemeGroupVersion.WithKind("SubmitterConfig"):
 		return &rayv1.SubmitterConfigApplyConfiguration{}
+	case v1.SchemeGroupVersion.WithKind("TopologyLabelMapping"):
+		return &rayv1.TopologyLabelMappingApplyConfiguration{}
+	case v1.SchemeGroupVersion.WithKind("TopologySpec"):
+		return &rayv1.TopologySpecApplyConfiguration{}
 	case v1.SchemeGroupVersion.WithKind("WorkerGroupSpec"):
 		return &rayv1.WorkerGroupSpecApplyConfiguration{}
 

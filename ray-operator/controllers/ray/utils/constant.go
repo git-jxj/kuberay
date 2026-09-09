@@ -158,6 +158,9 @@ const (
 	KUBERAY_GEN_AUTOSCALER_START_CMD        = "KUBERAY_GEN_AUTOSCALER_START_CMD"
 	RAY_START_ULIMIT_OPEN_FILES             = "RAY_START_ULIMIT_OPEN_FILES"
 
+	// MinRayVersionForTopologyLabels is the first Ray version with `ray start --labels-file`
+	MinRayVersionForTopologyLabels = "2.45.0"
+
 	// Environment variables for RayJob submitter Kubernetes Job.
 	// Example: ray job submit --address=http://$RAY_DASHBOARD_ADDRESS --submission-id=$RAY_JOB_SUBMISSION_ID ...
 	RAY_DASHBOARD_ADDRESS = "RAY_DASHBOARD_ADDRESS"
